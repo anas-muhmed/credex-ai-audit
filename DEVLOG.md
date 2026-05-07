@@ -17,4 +17,18 @@ Scaffolded folder structure and created all 12 placeholder markdown files.
 
 ---
 
+## Day 2 — 2026-05-07
+
+**Hours worked:** 3
+
+**What I did:** Built `lib/pricing-data.ts` with hardcoded pricing for all 8 AI tools and their plans. Built `components/SpendForm.tsx` — a multi-tool input form with tool selector, plan dropdown, seat count, use case selector, and monthly spend field. Added localStorage persistence so form data survives a page refresh. Updated `types/index.ts` with correct interfaces including `useCase` field on `ToolInput`. Filled `PRICING_DATA.md` with source URLs for every vendor.
+
+**What I learned:** The difference between `useEffect` with an empty dependency array (runs once on load) vs one with a dependency (runs every time that value changes). Using two `useEffect` hooks together is how you sync React state with localStorage — one to restore on load, one to save on every change.
+
+**Blockers / what I'm stuck on:** None. TypeScript naming mismatch between `AuditResult` and `AuditOutput` caught early — fixed before Day 3 audit engine imports these types.
+
+**Plan for tomorrow:** Build `lib/audit-engine.ts` — pure TypeScript logic implementing all 4 audit rules. Write all 5 Vitest tests in `__tests__/audit-engine.test.ts` and get them passing.
+
+---
+
 <!-- Add one entry per day -->
