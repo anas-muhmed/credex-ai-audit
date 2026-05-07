@@ -3,6 +3,7 @@
 All pricing is hardcoded in `lib/pricing-data.ts`. No external API calls. Prices verified as of May 2026.
 
 ## Cursor
+Source: https://www.cursor.com/pricing
 
 | Plan       | Price/seat/mo |
 |------------|---------------|
@@ -12,6 +13,7 @@ All pricing is hardcoded in `lib/pricing-data.ts`. No external API calls. Prices
 | Enterprise | Custom        |
 
 ## GitHub Copilot
+Source: https://github.com/features/copilot#pricing
 
 | Plan       | Price/seat/mo |
 |------------|---------------|
@@ -20,6 +22,7 @@ All pricing is hardcoded in `lib/pricing-data.ts`. No external API calls. Prices
 | Enterprise | $39           |
 
 ## Claude (Anthropic)
+Source: https://www.anthropic.com/pricing
 
 | Plan       | Price/seat/mo |
 |------------|---------------|
@@ -31,6 +34,7 @@ All pricing is hardcoded in `lib/pricing-data.ts`. No external API calls. Prices
 | API Direct | Usage-based   |
 
 ## ChatGPT (OpenAI)
+Source: https://openai.com/chatgpt/pricing
 
 | Plan       | Price/seat/mo |
 |------------|---------------|
@@ -41,14 +45,17 @@ All pricing is hardcoded in `lib/pricing-data.ts`. No external API calls. Prices
 | API Direct | Usage-based   |
 
 ## Anthropic API Direct
+Source: https://www.anthropic.com/pricing
 
 Usage-based. User enters actual monthly spend.
 
 ## OpenAI API Direct
+Source: https://openai.com/api/pricing
 
 Usage-based. User enters actual monthly spend.
 
 ## Gemini (Google)
+Source: https://one.google.com/about/plans
 
 | Plan       | Price/seat/mo |
 |------------|---------------|
@@ -58,6 +65,7 @@ Usage-based. User enters actual monthly spend.
 | API Direct | Usage-based   |
 
 ## Windsurf
+Source: https://windsurf.com/pricing
 
 | Plan | Price/seat/mo |
 |------|---------------|
