@@ -31,4 +31,18 @@ Scaffolded folder structure and created all 12 placeholder markdown files.
 
 ---
 
+## Day 3 — 2026-05-08
+
+**Hours worked:** 3
+
+**What I did:** Built `lib/audit-engine.ts` — pure TypeScript logic implementing all 4 audit rules: plan fit by seat count, redundancy detection between Cursor and GitHub Copilot, overpay vs API flag (only triggers for coding/data use cases), and the already-optimal fallback. Updated type names from Day 2 (`AuditResult` → per-tool result, `AuditOutput` → total output). Wrote 5 Vitest tests in `__tests__/audit-engine.test.ts` covering all rules. All 5 pass.
+
+**What I learned:** Pure functions are easy to test because they have no side effects — same input always gives same output. The `useCase` field from Day 2 is what makes Rule 3 intelligent — without it the API flag would fire for everyone on Claude Pro, even writers who don't benefit from API Direct.
+
+**Blockers / what I'm stuck on:** None. Tests passed first run after fixing missing `useCase` field in test inputs.
+
+**Plan for tomorrow:** Build the results page — `SavingsHero.tsx` (big savings number at top), `ToolBreakdown.tsx` (per-tool recommendation cards), and `app/results/[slug]/page.tsx` using hardcoded dummy audit data to build and validate the UI. No database connection yet — that comes Day 5.
+
+---
+
 <!-- Add one entry per day -->
