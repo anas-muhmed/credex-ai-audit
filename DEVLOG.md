@@ -45,4 +45,18 @@ Scaffolded folder structure and created all 12 placeholder markdown files.
 
 ---
 
+## Day 4 — 2026-05-09
+
+**Hours worked:** 3
+
+**What I did:** Built `components/SavingsHero.tsx` — displays total monthly and annual savings in large text with three conditional states: Credex consultation CTA for savings above $500, a "spending well" message for zero savings, and a low-savings notice for amounts under $100. Built `components/ToolBreakdown.tsx` — per-tool recommendation card with color-coded borders (yellow for savings found, green for optimal), savings badge, recommended action, and reasoning. Wired up `app/results/[slug]/page.tsx` using hardcoded dummy data to render both components. Page is fully functional and screenshot-ready.
+
+**What I learned:** Structuring dummy data to exactly match the TypeScript interface before the database exists forces you to think through the full data shape early — I caught a mismatch between `AuditOutput` and `AuditResult` naming that would have broken Day 5 Supabase wiring. Also learned that conditional rendering with `&&` is cleaner than ternaries when you only have a "show or don't show" case with no else branch.
+
+**Blockers / what I'm stuck on:** None. Dummy data approach worked well — UI is fully built and validated before touching the database.
+
+**Plan for tomorrow:** Connect Supabase — set up the two tables (audits, leads), wire up the API routes to read/write real data, replace dummy data on results page with real Supabase fetch. Also integrate Anthropic API for the summary paragraph and build the email capture flow with Resend.
+
+---
+
 <!-- Add one entry per day -->
