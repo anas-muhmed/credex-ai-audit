@@ -59,4 +59,18 @@ Scaffolded folder structure and created all 12 placeholder markdown files.
 
 ---
 
+## Day 5 — 2026-05-10
+
+**Hours worked:** 4
+
+**What I did:** Set up Supabase project, created `audits` and `leads` tables via SQL editor. Set up Resend account. Configured all environment variables in `.env.local`. Used Anthropic API (`claude-sonnet-4-20250514`) for AI summary generation. Updated `api/audit/route.ts` to save audits to Supabase and generate AI summary in one request. Updated `app/results/[slug]/page.tsx` to fetch real data from Supabase instead of dummy data. Built `EmailCapture.tsx` with honeypot field, rate limiting, and optional company/role/team size fields. Wired up `api/capture/route.ts` to save leads and send transactional email via Resend. Fixed Resend sender domain to use `onboarding@resend.dev` for development since custom domain is not yet verified. Full end-to-end flow tested and working.
+
+**What I learned:** Next.js initializes module-level code at build time, not runtime — so API clients that read `process.env` must be initialized inside the function body, not at the top of the file. Discovered this when the Anthropic client threw "Missing credentials" even though `.env.local` was correctly configured. Moving the client initialization inside the function fixed it immediately.
+
+**Blockers / what I'm stuck on:** Resend free tier only allows sending to the account owner's email without a verified domain. This is fine for testing but needs a verified domain before production deploy. Will sort on Day 6 when deploying to Vercel.
+
+**Plan for tomorrow:** Shareable URL is already working. Day 6 tasks: GitHub Actions CI setup, deploy to Vercel, add environment variables to Vercel dashboard, verify OG tags work on the deployed URL, fix Resend sender domain.
+
+---
+
 <!-- Add one entry per day -->

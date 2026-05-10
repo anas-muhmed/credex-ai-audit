@@ -197,9 +197,10 @@ export default function SpendForm() {
         <button
           type="button"
           onClick={addEntry}
-          className="w-full rounded-xl border border-dashed border-gray-700 py-3 text-sm text-gray-400 hover:border-gray-500 hover:text-gray-300 transition-colors"
+          className="w-full rounded-xl border border-dashed border-gray-700 py-4 text-sm text-gray-400 hover:border-gray-500 hover:text-gray-300 transition-colors"
         >
-          + Add another tool
+          <span className="block">+ Add another tool</span>
+          <span className="block text-xs text-gray-600 mt-1">Include tools you subscribed to but rarely use</span>
         </button>
       )}
 
