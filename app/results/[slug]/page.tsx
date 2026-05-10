@@ -1,75 +1,65 @@
+import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import type { AuditOutput } from '@/types'
+import { supabase } from '@/lib/supabase'
 import SavingsHero from '@/components/SavingsHero'
 import ToolBreakdown from '@/components/ToolBreakdown'
+import EmailCapture from '@/components/EmailCapture'
 
 interface PageProps {
   params: { slug: string }
 }
 
-// Dummy data — replaced with real Supabase fetch on Day 5
-const DUMMY_AUDIT: AuditOutput = {
-  totalMonthlySavings: 640,
-  totalAnnualSavings: 7680,
-  isHighSavings: true,
-  toolResults: [
-    {
-      tool: 'cursor',
-      currentPlan: 'Business',
-      currentMonthlyCost: 80,
-      recommendation: 'Downgrade to Pro',
-      recommendedAction: 'Switch from Business to Pro — you only have 2 seats, which does not justify the higher tier.',
-      monthlySavings: 40,
-      annualSavings: 480,
-      reasoning: 'With 2 seats, the Pro plan covers your needs at a lower price.',
-      isOptimal: false,
-    },
-    {
-      tool: 'github-copilot',
-      currentPlan: 'Business',
-      currentMonthlyCost: 38,
-      recommendation: 'Drop — redundant with cursor',
-      recommendedAction: 'You have both Cursor and GitHub Copilot — these are redundant coding assistants. Drop GitHub Copilot and keep Cursor.',
-      monthlySavings: 38,
-      annualSavings: 456,
-      reasoning: 'Running two AI coding assistants simultaneously provides diminishing returns over a single well-chosen tool.',
-      isOptimal: false,
-    },
-    {
-      tool: 'claude',
-      currentPlan: 'Team',
-      currentMonthlyCost: 90,
-      recommendation: 'Downgrade to Pro',
-      recommendedAction: 'Switch from Team to Pro — you only have 2 seats, which does not justify the Team plan.',
-      monthlySavings: 20,
-      annualSavings: 240,
-      reasoning: 'With 2 seats, the Pro plan covers your needs at a lower price.',
-      isOptimal: false,
-    },
-    {
-      tool: 'windsurf',
-      currentPlan: 'Pro',
-      currentMonthlyCost: 75,
-      recommendation: 'No action needed',
-      recommendedAction: 'You are spending well on this tool.',
-      monthlySavings: 0,
-      annualSavings: 0,
-      reasoning: 'Your current plan is appropriate for your team size and usage.',
-      isOptimal: true,
-    },
-  ],
+interface AuditRow {
+  id: string
+  slug: string
+  audit_results: AuditOutput
+  ai_summary: string | null
+  total_monthly_savings: number
+  total_annual_savings: number
 }
 
-const DUMMY_SUMMARY = 'Based on your current AI tool spend of $283/month across 4 tools, your team has a clear opportunity to save $640/month by eliminating a redundant coding assistant and right-sizing two subscriptions to your actual seat count. The biggest win is dropping GitHub Copilot entirely — Cursor already covers everything it does. These are straightforward changes you can make today with no workflow disruption.'
+async function getAudit(slug: string): Promise<AuditRow | null> {
+  const { data, error } = await supabase
+    .from('audits')
+    .select('id, slug, audit_results, ai_summary, total_monthly_savings, total_annual_savings')
+    .eq('slug', slug)
+    .single()
 
-export const metadata: Metadata = {
-  title: `I found $${DUMMY_AUDIT.totalMonthlySavings}/month in AI tool savings`,
-  description: DUMMY_SUMMARY.split('.')[0],
+  if (error || !data) return null
+  return data as AuditRow
 }
 
-export default function ResultsPage({ params }: PageProps) {
-  const audit = DUMMY_AUDIT
-  const summary = DUMMY_SUMMARY
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const audit = await getAudit(params.slug)
+  if (!audit) return { title: 'Audit not found' }
+
+  const savings = audit.total_monthly_savings
+  const firstSentence = audit.ai_summary?.split('.')[0] ?? ''
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://ai-spend-audit.vercel.app'
+
+  return {
+    title: `I found $${savings}/month in AI tool savings | AI Spend Audit`,
+    description: firstSentence,
+    openGraph: {
+      title: `I found $${savings}/month in AI tool savings`,
+      description: firstSentence,
+      url: `${baseUrl}/results/${params.slug}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `I found $${savings}/month in AI tool savings`,
+      description: firstSentence,
+    },
+  }
+}
+
+export default async function ResultsPage({ params }: PageProps) {
+  const audit = await getAudit(params.slug)
+  if (!audit) notFound()
+
+  const auditResult = audit.audit_results
+  const summary = audit.ai_summary ?? ''
 
   return (
     <main className="min-h-screen bg-gray-950 text-white">
@@ -85,18 +75,20 @@ export default function ResultsPage({ params }: PageProps) {
 
         {/* Big savings number + CTA */}
         <SavingsHero
-          totalMonthlySavings={audit.totalMonthlySavings}
-          totalAnnualSavings={audit.totalAnnualSavings}
-          isHighSavings={audit.isHighSavings}
+          totalMonthlySavings={auditResult.totalMonthlySavings}
+          totalAnnualSavings={auditResult.totalAnnualSavings}
+          isHighSavings={auditResult.isHighSavings}
         />
 
         {/* AI summary paragraph */}
-        <div className="rounded-xl border border-gray-800 bg-gray-900 px-6 py-5">
-          <p className="text-xs font-medium text-gray-500 uppercase tracking-widest mb-2">
-            Audit Summary
-          </p>
-          <p className="text-gray-300 leading-relaxed">{summary}</p>
-        </div>
+        {summary && (
+          <div className="rounded-xl border border-gray-800 bg-gray-900 px-6 py-5">
+            <p className="text-xs font-medium text-gray-500 uppercase tracking-widest mb-2">
+              Audit Summary
+            </p>
+            <p className="text-gray-300 leading-relaxed">{summary}</p>
+          </div>
+        )}
 
         {/* Per-tool breakdown */}
         <div>
@@ -104,11 +96,14 @@ export default function ResultsPage({ params }: PageProps) {
             Tool-by-tool breakdown
           </h2>
           <div className="space-y-4">
-            {audit.toolResults.map((result) => (
+            {auditResult.toolResults.map((result) => (
               <ToolBreakdown key={result.tool} result={result} />
             ))}
           </div>
         </div>
+
+        {/* Email capture */}
+        <EmailCapture auditId={audit.id} slug={params.slug} />
 
         {/* Footer */}
         <p className="text-center text-xs text-gray-600">
