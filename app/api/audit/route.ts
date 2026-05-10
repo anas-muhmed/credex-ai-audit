@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { nanoid } from 'nanoid'
-import OpenAI from 'openai'
+import Anthropic from '@anthropic-ai/sdk'
 import { runAudit } from '@/lib/audit-engine'
 import { supabase } from '@/lib/supabase'
 import type { AuditApiRequest, AuditApiResponse, AuditOutput } from '@/types'
@@ -18,13 +18,13 @@ function buildFallbackSummary(auditResult: AuditOutput, toolCount: number, total
 
 async function generateSummary(auditResult: AuditOutput, toolCount: number, totalSpend: number): Promise<string> {
   try {
-    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY ?? '' })
+    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY ?? '' })
     const toolSummary = auditResult.toolResults
       .map((r) => `- ${r.tool} (${r.currentPlan}): $${r.currentMonthlyCost}/mo — ${r.recommendation}, saves $${r.monthlySavings}/mo`)
       .join('\n')
 
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+    const message = await client.messages.create({
+      model: 'claude-sonnet-4-20250514',
       max_tokens: 256,
       messages: [{
         role: 'user',
@@ -40,7 +40,8 @@ Write the paragraph now:`,
       }],
     })
 
-    return completion.choices[0]?.message?.content ?? buildFallbackSummary(auditResult, toolCount, totalSpend)
+    const block = message.content.find((b) => b.type === 'text')
+    return block?.type === 'text' ? block.text : buildFallbackSummary(auditResult, toolCount, totalSpend)
   } catch {
     return buildFallbackSummary(auditResult, toolCount, totalSpend)
   }
