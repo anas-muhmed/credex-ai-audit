@@ -73,4 +73,18 @@ Scaffolded folder structure and created all 12 placeholder markdown files.
 
 ---
 
+## Day 6 — 2026-05-11
+
+**Hours worked:** 2
+
+**What I did:** Fixed a TypeScript CI error in `SpendForm.tsx` — the `updateEntry` function was missing the `useCase` field when switching tools, which caused `tsc --noEmit` to fail in GitHub Actions. Fixed by adding `useCase: 'mixed'` as the default when resetting a tool entry. CI went green. Deployed to Vercel via the web dashboard, added all 5 environment variables (ANTHROPIC_API_KEY, SUPABASE_URL, SUPABASE_ANON_KEY, RESEND_API_KEY, NEXT_PUBLIC_BASE_URL), and redeployed. Verified the full end-to-end flow on production — submitted a real audit and landed on a live shareable results page at `credex-ai-audit-one.vercel.app/results/jEYlm6AP`.
+
+**What I learned:** TypeScript's strict mode catches missing required fields even inside conditional branches that look correct at a glance. The CI type check (`tsc --noEmit`) is more valuable than local development because it runs against the full project with no loose settings — it caught a bug that the browser was silently ignoring by falling back to `undefined`. Also learned that Vercel GUI deployment is faster than CLI when you don't have an existing auth token.
+
+**Blockers / what I'm stuck on:** Resend free tier still limits sending to the account owner's email without a verified domain. Works for testing but needs `noreply@credex.rocks` verified before production launch.
+
+**Plan for tomorrow:** Write all documentation files — ARCHITECTURE.md (system diagram), REFLECTION.md (5 questions), GTM.md, ECONOMICS.md, LANDING_COPY.md, METRICS.md, TESTS.md, PROMPTS.md, and README.md with screenshots. Run Lighthouse audit on the deployed URL targeting Performance ≥85 and Accessibility ≥90. Get a 3rd user interview if possible.
+
+---
+
 <!-- Add one entry per day -->
