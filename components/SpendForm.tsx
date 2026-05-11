@@ -50,6 +50,7 @@ export default function SpendForm() {
           plan: firstPlan?.name ?? '',
           seats: 1,
           monthlySpend: firstPlan?.pricePerSeat ?? 0,
+          useCase: 'mixed',
         }
       } else {
         updated[index] = { ...updated[index], [field]: value }
