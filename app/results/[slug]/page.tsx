@@ -63,14 +63,19 @@ export default async function ResultsPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-gray-950 text-white">
-      <div className="mx-auto max-w-3xl px-4 py-16 space-y-8">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 py-12 md:py-16 space-y-8">
 
         {/* Header */}
-        <div>
-          <p className="text-sm text-gray-500 mb-2">
-            Audit ID: <span className="font-mono">{params.slug}</span>
+        <div className="text-center pb-2">
+          <p className="text-xs font-semibold text-blue-400/70 uppercase tracking-widest mb-2">
+            AI Spend Audit · by Credex
           </p>
-          <h1 className="text-3xl font-bold">Your AI Spend Audit</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-white">
+            Your AI Spending Report
+          </h1>
+          <p className="text-gray-400 text-sm mt-1">
+            Find what to cut, what to keep, and what to optimise.
+          </p>
         </div>
 
         {/* Big savings number + CTA */}
@@ -106,12 +111,17 @@ export default async function ResultsPage({ params }: PageProps) {
         <EmailCapture auditId={audit.id} slug={params.slug} />
 
         {/* Footer */}
-        <p className="text-center text-xs text-gray-600">
-          Powered by{' '}
-          <a href="https://credex.rocks" className="hover:text-gray-400 transition-colors">
-            Credex
-          </a>
-        </p>
+        <div className="text-center space-y-1">
+          <p className="text-xs text-gray-600">
+            Powered by{' '}
+            <a href="https://credex.rocks" className="hover:text-gray-400 transition-colors">
+              Credex
+            </a>
+          </p>
+          <p className="text-xs text-gray-700 font-mono">
+            {params.slug}
+          </p>
+        </div>
       </div>
     </main>
   )
