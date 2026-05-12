@@ -114,8 +114,9 @@ export default function SpendForm() {
 
             {/* Tool selector */}
             <div>
-              <label className="block text-sm text-gray-400 mb-1">AI Tool</label>
+              <label htmlFor={`tool-${index}`} className="block text-sm text-gray-400 mb-1">AI Tool</label>
               <select
+                id={`tool-${index}`}
                 value={entry.tool}
                 onChange={(e) => updateEntry(index, 'tool', e.target.value)}
                 className="w-full rounded-lg bg-gray-800 border border-gray-700 text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -130,8 +131,9 @@ export default function SpendForm() {
 
             {/* Plan selector */}
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Plan</label>
+              <label htmlFor={`plan-${index}`} className="block text-sm text-gray-400 mb-1">Plan</label>
               <select
+                id={`plan-${index}`}
                 value={entry.plan}
                 onChange={(e) => updateEntry(index, 'plan', e.target.value)}
                 className="w-full rounded-lg bg-gray-800 border border-gray-700 text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -148,8 +150,9 @@ export default function SpendForm() {
             {/* Seats — hide for API Direct plans */}
             {!selectedPlan?.isApiDirect && (
               <div>
-                <label className="block text-sm text-gray-400 mb-1">Number of seats</label>
+                <label htmlFor={`seats-${index}`} className="block text-sm text-gray-400 mb-1">Number of seats</label>
                 <input
+                  id={`seats-${index}`}
                   type="number"
                   min={1}
                   value={entry.seats}
@@ -161,8 +164,9 @@ export default function SpendForm() {
 
             {/* Use case */}
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Primary use case</label>
+              <label htmlFor={`usecase-${index}`} className="block text-sm text-gray-400 mb-1">Primary use case</label>
               <select
+                id={`usecase-${index}`}
                 value={entry.useCase}
                 onChange={(e) => updateEntry(index, 'useCase', e.target.value)}
                 className="w-full rounded-lg bg-gray-800 border border-gray-700 text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -177,10 +181,11 @@ export default function SpendForm() {
 
             {/* Monthly spend */}
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Monthly spend (USD)</label>
+              <label htmlFor={`spend-${index}`} className="block text-sm text-gray-400 mb-1">Monthly spend (USD)</label>
               <div className="relative">
                 <span className="absolute left-3 top-2 text-gray-400 text-sm">$</span>
                 <input
+                  id={`spend-${index}`}
                   type="number"
                   min={0}
                   value={entry.monthlySpend}
