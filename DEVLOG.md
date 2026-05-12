@@ -87,4 +87,18 @@ Scaffolded folder structure and created all 12 placeholder markdown files.
 
 ---
 
+## Day 7 — 2026-05-12
+
+**Hours worked:** 6
+
+**What I did:** Wrote all 9 documentation files: PROMPTS.md (prompt design rationale), TESTS.md (test coverage and deliberate gaps), ARCHITECTURE.md (Mermaid system diagram and 6 key design decisions), README.md (live URL, screenshots, Loom recording, decisions section), ECONOMICS.md (real API cost calculation at $0.0023/audit, unit economics, path to $1M ARR), GTM.md (ICP with user interview grounding, 5 distribution channels, unfair advantage, week-by-week first 100 users plan), METRICS.md (north star metric, 4 secondary metrics, pivot triggers, Lighthouse scores), LANDING_COPY.md (headline, subheadline, CTA copy, trust signals, FAQ), REFLECTION.md (5 sections: hardest bug, reversed decision, week 2 roadmap, AI tool usage, self-rating). Added Interview 3 (Amshen) to USER_INTERVIEWS.md. Improved results page UI: larger savings number (72px), premium dark background, left border accents on tool cards, pill-shaped badges, typography hierarchy, clean page header. Fixed form page accessibility — missing htmlFor/id on all form labels brought Lighthouse accessibility from 83 to 96. Recorded Loom walkthrough and added real screenshots to README. Final Lighthouse scores: form page 82/96/100/100, results page 81/90/100/100.
+
+**What I learned:** Documentation is not a formality — writing ECONOMICS.md forced a real calculation of the Anthropic API cost per audit ($0.0023) which I had not done before. Writing REFLECTION.md honestly required naming specific mistakes by name (the OpenAI switch, the late CI setup, the accessibility miss). The self-rating exercise was the most uncomfortable part of the week. That discomfort is probably the point.
+
+**Blockers / what I'm stuck on:** Performance score on the results page sits at 81, just below the ≥85 target. The cause is the Supabase fetch being on the critical path — nothing renders until the database query returns. Fixing it requires response caching (Next.js `unstable_cache` or Vercel Edge caching), which was out of scope for this build week. The explanation is in METRICS.md.
+
+**Plan for tomorrow:** Submit. The build is complete.
+
+---
+
 <!-- Add one entry per day -->
