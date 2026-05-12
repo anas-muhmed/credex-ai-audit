@@ -64,8 +64,8 @@ How to measure: manual tracking initially (Credex advisor notes which leads came
 
 | Category | Score | Target |
 |----------|-------|--------|
-| Performance | 98 | ≥ 85 |
-| Accessibility | 83 | ≥ 90 |
+| Performance | 82 | ≥ 85 |
+| Accessibility | 96 | ≥ 90 |
 | Best Practices | 100 | ≥ 90 |
 | SEO | 100 | ≥ 90 |
 
