@@ -72,16 +72,55 @@ Two changes came from this conversation:
 
 ---
 
-## Key insights across both interviews
+---
 
-1. **Auto-debit kills awareness.** Neither user actively monitors their AI subscriptions. Spend accumulates invisibly until someone looks at the bank statement.
+## Interview 3 — Amshen, Freelance Developer and Content Consultant, Independent
 
-2. **Trust is earned by specificity.** Vague recommendations ("this is expensive") are dismissed. Specific reasoning tied to their actual seat count and use case is what they described as credible.
+**Role:** Freelance Developer and Content Consultant
+**Company stage:** Independent, no company subsidy
+**Format:** WhatsApp conversation, ~25 minutes
+**Date:** 2026-05-12
 
-3. **FOMO is the root cause, not the tools.** Cancelling one subscription doesn't solve the problem — the next Twitter thread will create a new one. The audit helps with the rational decision but not the behavioral one.
+**Context:** Amshen handles mixed client work — coding, content, proposals. Pays for all AI tools personally from freelance income. Workload is inconsistent week to week, which means his AI tool value is inconsistent in a way a salaried employee's would not be.
 
-4. **Email after value, never before.** Both users independently described leaving tools that asked for email upfront. This validated the design without prompting.
+**Direct quotes:**
+
+> "Some weeks heavy workload. Then AI feels like a lifesaver. Next two weeks almost no use. Monthly subscription feels waste sometimes."
+
+> "I forgot I upgraded from free plan during one urgent client project. After project finished I barely opened it again for one month."
+
+> "Pure laziness. You always feel maybe next client work it will be useful."
+
+> "I just want quick answer. Not relationship."
+
+> "Just use free AI tools only sounds good until deadline hits."
+
+> "Especially for freelancers. We subscribe during pressure periods and forget later."
+
+**Most surprising thing:** Amshen does not think about AI tools as a fixed monthly cost the way a salaried employee would. His workload is inconsistent, so his AI tool value is inconsistent. He upgraded Claude during a high-pressure client project, used it heavily for one week, then barely touched it for a month before cancelling. The audit tool as designed assumes relatively stable monthly usage. For freelancers the real problem is not which plan they are on — it is that they subscribe during pressure and forget to cancel after. That is a fundamentally different problem from what the tool currently solves.
+
+**What it changed about the design:**
+
+Two changes came from this conversation:
+
+1. Added a low-usage warning concept to the results framing. If a user enters a tool with high monthly spend and reports infrequent or mixed use, the reasoning now flags it as a usage mismatch rather than just a plan mismatch — "consider cancelling between projects and resubscribing when needed" is more honest and more useful for the freelancer segment than a generic downgrade recommendation.
+
+2. Simplified email capture fields. Amshen specifically described asking for company size, phone number, and demo booking as starting a relationship he did not ask for. The optional capture form now asks for email and optional role only — the minimum needed for Credex follow-up without the friction of a discovery call funnel.
+
+---
+
+## Key insights across all three interviews
+
+1. **Auto-debit kills awareness.** None of the three users actively monitor their AI subscriptions. Spend accumulates invisibly until someone checks a bank statement.
+
+2. **Trust is earned by specificity.** Vague recommendations ("this is expensive") are dismissed immediately. Reasoning tied to actual seat count, use case, and usage pattern is what all three described as credible.
+
+3. **FOMO is the root cause, not the tools.** Sinan said he would cancel Claude today — and resubscribe to something else within two weeks. Cancelling one subscription does not solve the underlying behavior. The audit helps with the rational decision but not the behavioral one.
+
+4. **Email after value, never before.** All three users independently described leaving tools that asked for email upfront. No prompting was needed — this came up organically each time.
+
+5. **Freelancers are a distinct segment.** Salaried users have stable usage patterns where plan optimization makes sense. Freelancers have bursty workloads where the real problem is subscribe-and-forget, not wrong plan tier. The current tool addresses the salaried case well and the freelancer case partially.
 
 ## What surprised me most
 
-The forgotten auto-renewal insight from Dharaneesh was entirely outside the design scope going in. The tool was built assuming users know what they're paying for. The real picture is messier — subscriptions that aren't actively used but keep renewing because cancellation requires effort. A future version should prompt: "anything you subscribed to and forgot about?" as an explicit input category.
+Going into these interviews I assumed users knew what they were paying for and just needed help optimizing it. The actual picture was messier in both directions: Dharaneesh had a forgotten auto-renewal on a tool he had used exactly once. Amshen subscribed during deadline pressure and forgot to cancel. Sinan knew exactly what he was paying but renewed out of FOMO rather than use. The design assumption — that users have clear, stable usage they want to optimize — was only true for one of three users. A future version needs an explicit "subscriptions I barely use" input category alongside the standard plan optimization flow.
