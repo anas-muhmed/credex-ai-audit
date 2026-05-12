@@ -12,46 +12,54 @@ export default function SavingsHero({
   const hasAnySavings = totalMonthlySavings > 0
 
   return (
-    <div className="rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 p-8 text-center">
+    <div className="rounded-2xl bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 border border-blue-900/30 p-8 md:p-12 text-center">
 
-      {/* Main savings number */}
-      <p className="text-sm font-medium text-gray-400 uppercase tracking-widest mb-2">
+      {/* Label */}
+      <p className="text-xs font-semibold text-blue-400/70 uppercase tracking-widest mb-3">
         Monthly savings identified
       </p>
-      <p className="text-6xl font-bold text-white mb-1">
+
+      {/* Main savings number — minimum 72px */}
+      <p className="text-7xl font-bold text-white mb-2 tabular-nums leading-none">
         ${totalMonthlySavings.toLocaleString()}
       </p>
-      <p className="text-lg text-gray-400">
-        ${totalAnnualSavings.toLocaleString()} / year
+
+      {/* Annual savings */}
+      <p className="text-lg text-slate-400 mt-2">
+        <span className="text-white font-semibold text-xl">
+          ${totalAnnualSavings.toLocaleString()}
+        </span>
+        {' '}/ year
       </p>
 
       {/* High savings CTA */}
       {isHighSavings && (
-        <div className="mt-8 rounded-xl bg-blue-600 px-6 py-5">
+        <div className="mt-8 rounded-xl bg-blue-600/10 border border-blue-500/20 px-6 py-5">
           <p className="text-white font-semibold text-lg">
             Get these savings guaranteed
           </p>
-          <p className="text-blue-200 text-sm mt-1 mb-4">
+          <p className="text-blue-300/70 text-sm mt-1 mb-5">
             A Credex advisor will audit your stack and implement the savings for you.
           </p>
           <a
             href="https://credex.rocks"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block rounded-lg bg-white text-blue-700 font-semibold px-6 py-2 text-sm hover:bg-blue-50 transition-colors"
+            className="flex items-center justify-center gap-2 w-full rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold py-4 text-base transition-colors"
           >
-            Book a Credex consultation →
+            Book a Credex consultation
+            <span aria-hidden="true">→</span>
           </a>
         </div>
       )}
 
       {/* Spending well message */}
       {!hasAnySavings && (
-        <div className="mt-8 rounded-xl bg-green-900/40 border border-green-700 px-6 py-5">
+        <div className="mt-8 rounded-xl bg-green-900/30 border border-green-700/40 px-6 py-5">
           <p className="text-green-400 font-semibold text-lg">
             You&apos;re spending well
           </p>
-          <p className="text-green-300/70 text-sm mt-1">
+          <p className="text-green-300/60 text-sm mt-1">
             Sign up to get notified when better options apply to your stack.
           </p>
         </div>
@@ -59,8 +67,8 @@ export default function SavingsHero({
 
       {/* Low but non-zero savings */}
       {hasAnySavings && !isHighSavings && totalMonthlySavings < 100 && (
-        <div className="mt-8 rounded-xl bg-yellow-900/30 border border-yellow-700/50 px-6 py-4">
-          <p className="text-yellow-300 text-sm">
+        <div className="mt-8 rounded-xl bg-yellow-900/20 border border-yellow-700/30 px-6 py-4">
+          <p className="text-yellow-300/80 text-sm">
             Small savings found. Sign up to get notified when bigger opportunities apply to your stack.
           </p>
         </div>
